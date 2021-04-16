@@ -8,17 +8,17 @@ namespace Battleship
     {
         public (int x, int y) Position { get; private set; }
         public enum SquareStatus { empty, ship, hit, missed }
-        SquareStatus status { get; set; }
+        SquareStatus Status { get; set; }
 
         public Square(int x, int y)
         {
             Position = (x, y);
-            status = SquareStatus.empty;
+            Status = SquareStatus.empty;
         }
 
         public char GetCharacter()
         {
-            switch ((int)status)
+            switch ((int)Status)
             {
                 case 0:
                     return '~';
@@ -35,7 +35,7 @@ namespace Battleship
         }
         public void ChangeStatus(SquareStatus s)
         {
-            this.status = s;
+            this.Status = s;
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Battleship
         public Square[,] ocean { get; private set; }
         public int Size { get; private set; }
 
-        public Board()
+        public Board() // TODO pass size (or widht and height) here - bart
         {
             Size = 10;
             ocean = NewOcean(Size);

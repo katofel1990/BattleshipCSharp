@@ -4,7 +4,8 @@ using System.Text;
 
 namespace Battleship
 {
-    class Player
+    public class Player
     {
+        public List<Ship> Ships { get; } = new List<Ship>();
     }
 }

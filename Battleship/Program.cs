@@ -6,8 +6,10 @@ namespace Battleship
     {
         static void Main(string[] args)
         {
-            var battle = new Battle();
-            battle.Run();
+            var mainMenu = new MainMenu();
+            var battleApp = new BattleshipApplication(mainMenu);
+
+            battleApp.Run();
         }
     }
 }
