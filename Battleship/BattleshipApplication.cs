@@ -6,12 +6,16 @@ namespace Battleship
 {
     public class BattleshipApplication
     {
+        public Display Display { get; }
+        public Input Input { get; }
         public MainMenu MainMenu { get; }
-
         public Game Game { get; private set; }
 
-        public BattleshipApplication(MainMenu menu)
+
+        public BattleshipApplication(MainMenu menu, Display display, Input input)
         {
+            Display = display;
+            Input = input;
             MainMenu = menu;
         }
         public void Run()

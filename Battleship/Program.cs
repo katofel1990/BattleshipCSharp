@@ -7,7 +7,9 @@ namespace Battleship
         static void Main(string[] args)
         {
             var mainMenu = new MainMenu();
-            var battleApp = new BattleshipApplication(mainMenu);
+            var display = new Display();
+            var input = new Input();
+            var battleApp = new BattleshipApplication(mainMenu, display, input);
 
             battleApp.Run();
         }
