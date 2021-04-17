@@ -8,7 +8,7 @@ namespace Battleship
     {
         public (int x, int y) Position { get; private set; }
         public enum SquareStatus { empty, ship, hit, missed }
-        SquareStatus Status { get; set; }
+        public SquareStatus Status { get; set; }
 
         public Square(int x, int y)
         {
@@ -33,9 +33,29 @@ namespace Battleship
 
             }
         }
+
         public void ChangeStatus(SquareStatus s)
         {
             this.Status = s;
         }
+
+        public ConsoleColor GetColore()
+        {
+            switch ((int)Status)
+            {
+                case 0:
+                    return ConsoleColor.Blue;
+                case 1:
+                    return ConsoleColor.Red;
+                case 2:
+                    return ConsoleColor.Red;
+                case 3:
+                    return ConsoleColor.Yellow;
+                default:
+                    return ConsoleColor.DarkMagenta;
+
+            }
+        }
+
     }
 }

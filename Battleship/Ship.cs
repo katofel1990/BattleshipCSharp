@@ -7,17 +7,24 @@ namespace Battleship
     public class Ship
     {
         public int length { get; private set; }
-        public (int x, int y) OriginPoint { get; private set; }
+        public (int x, int y) OriginPoint { get; set; }
         public enum Direction { horizontal, vertical }
-        public Direction direction { get; private set; }
+        public Direction direction { get; set; }
         enum ShipType { Carrier, Cruiser, Battleship, Submarine, Destroyer }
         ShipType type { get; set; }
+        public List<Square> squares { get; private set; } = new List<Square>();
 
         public Ship(int x, int y, int length, Direction dir)
         {
             this.OriginPoint = (x, y);
             this.length = length;
             this.direction = dir;
+            SetTypeShip();
+        }
+
+        public Ship(int length)
+        {
+            this.length = length;
             SetTypeShip();
         }
 
@@ -44,6 +51,11 @@ namespace Battleship
         public string GetShipType()
         {
             return type.ToString();
+        }
+
+        internal void AddSquare(Square square)
+        {
+            squares.Add(square);
         }
     }
 }

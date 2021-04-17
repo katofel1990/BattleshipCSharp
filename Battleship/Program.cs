@@ -1,17 +1,36 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Battleship
 {
     class Program
     {
+        //static void Main(string[] args)
+        //{
+        //    var mainMenu = new MainMenu();
+        //    var display = new Display();
+        //    var input = new Input();
+        //    var battleApp = new BattleshipApplication(mainMenu, display, input);
+
+        //    battleApp.Run();
+        //}
+
+
         static void Main(string[] args)
         {
-            var mainMenu = new MainMenu();
-            var display = new Display();
-            var input = new Input();
-            var battleApp = new BattleshipApplication(mainMenu, display, input);
-
-            battleApp.Run();
+            Input input = new Input();
+            Display display = new Display();
+            Board board = new Board();
+            Display dis = new Display();
+            Ship ship = new Ship(1, 1, 3, Ship.Direction.horizontal);
+            BoardFactory fac = new BoardFactory(display, input);
+            List<Ship> ships = new List<Ship>();
+            ships.Add(new Ship(1));
+            ships.Add(new Ship(2));
+            ships.Add(new Ship(3));
+            ships.Add(new Ship(4));
+            fac.ManualPlacement(board, ships);
         }
+
     }
 }

@@ -31,10 +31,46 @@ namespace Battleship
             return res;
         }
 
-        void AddShip(Ship ship)
+        public void AddShip(Ship ship)
         {
-
+            for (int i = 0; i < ship.length; i++)
+            {
+                Square square;
+                if (ship.direction == Ship.Direction.horizontal)
+                {
+                    square = ocean[ship.OriginPoint.x + i, ship.OriginPoint.y];
+                    square.Status = Square.SquareStatus.ship;
+                    ship.AddSquare(square);
+                }
+                else
+                {
+                    square = ocean[ship.OriginPoint.x, ship.OriginPoint.y + i];
+                    square.Status = Square.SquareStatus.ship;
+                    ship.AddSquare(square);
+                }
+            }
         }
 
+        public bool possibleShip(Ship ship)
+        {
+            for (int i = 0; i < ship.length; i++)
+            {
+                if (ship.direction == Ship.Direction.horizontal)
+                {
+                    if (ocean[ship.OriginPoint.x+i, ship.OriginPoint.y].Status != Square.SquareStatus.empty)
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    if (ocean[ship.OriginPoint.x, ship.OriginPoint.y + i].Status != Square.SquareStatus.empty)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
     }
 }
