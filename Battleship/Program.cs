@@ -21,8 +21,6 @@ namespace Battleship
             Input input = new Input();
             Display display = new Display();
             Board board = new Board();
-            Display dis = new Display();
-            Ship ship = new Ship(1, 1, 3, Ship.Direction.horizontal);
             BoardFactory fac = new BoardFactory(display, input);
             List<Ship> ships = new List<Ship>();
             ships.Add(new Ship(1));

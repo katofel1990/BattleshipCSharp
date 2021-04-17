@@ -48,7 +48,40 @@ namespace Battleship
                     square.Status = Square.SquareStatus.ship;
                     ship.AddSquare(square);
                 }
+                MarkAdjacentSquares(ship);
             }
+        }
+
+        private void MarkAdjacentSquares(Ship ship)
+        {
+            foreach (Square square in ship.squares)
+            {
+                int x = square.Position.x;
+                int y = square.Position.y;
+                Square currentSquare;
+
+                currentSquare = ocean[x > 0 ? x - 1 : x, y > 0 ? y- 1 : y];
+                MarkSquareIfEmpty(currentSquare);
+                currentSquare = ocean[x > 0 ? x - 1 : x, y];
+                MarkSquareIfEmpty(currentSquare);
+                currentSquare = ocean[x > 0 ? x - 1 : x, y < Size - 1 ? y + 1 : y];
+                MarkSquareIfEmpty(currentSquare);
+                currentSquare = ocean[x < Size - 1 ? x + 1 : x, y > 0 ? y - 1 : y];
+                MarkSquareIfEmpty(currentSquare);
+                currentSquare = ocean[x < Size - 1 ? x + 1 : x, y];
+                MarkSquareIfEmpty(currentSquare);
+                currentSquare = ocean[x < Size - 1 ? x + 1 : x, y < Size - 1 ? y + 1 : y];
+                MarkSquareIfEmpty(currentSquare);
+                currentSquare = ocean[x, y > 0 ? y - 1 : y];
+                MarkSquareIfEmpty(currentSquare);
+                currentSquare = ocean[x, y < Size - 1 ? y + 1 : y];
+                MarkSquareIfEmpty(currentSquare);
+            }
+        }
+
+        private void MarkSquareIfEmpty(Square currentSquare)
+        {
+            if (currentSquare.Status == Square.SquareStatus.empty) currentSquare.Status = Square.SquareStatus.bouy;
         }
 
         public bool possibleShip(Ship ship)
