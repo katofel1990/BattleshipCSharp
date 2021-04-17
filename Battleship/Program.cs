@@ -20,7 +20,7 @@ namespace Battleship
         {
             Input input = new Input();
             Display display = new Display();
-            Board board = new Board();
+            Board board = new Board(10);
             BoardFactory fac = new BoardFactory(display, input);
             List<Ship> ships = new List<Ship>();
             ships.Add(new Ship(1));

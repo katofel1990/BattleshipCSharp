@@ -22,6 +22,12 @@ namespace Battleship
                 AddOneShipManual(board, ship);
             }
         }
+
+        public void RandomPlacement(Board board, List<Ship> ships)
+        {
+            throw new NotImplementedException();
+        }
+
         public void AddOneShipManual(Board board, Ship ship)
         {
             int x = 0;
