@@ -19,10 +19,13 @@ namespace Battleship
         static void Main(string[] args)
         {
             Input input = new Input();
+            MainMenu menu = new MainMenu();
             Display display = new Display();
             Board board = new Board();
             BoardFactory fac = new BoardFactory(display, input);
             List<Ship> ships = new List<Ship>();
+            ASCII.Welcome();
+            menu.AskForGameMode();
             ships.Add(new Ship(1));
             ships.Add(new Ship(2));
             ships.Add(new Ship(3));
