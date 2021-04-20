@@ -20,6 +20,6 @@ namespace Battleship
         public void Run()
         {
             throw new NotImplementedException();
-        }
+        }       
     }
 }

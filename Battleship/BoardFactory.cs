@@ -44,6 +44,7 @@ namespace Battleship
             {
                 AddOneShipManual(board, ship);
             }
+            board.DeleteBouys();
         }
         void AddOneShipManual(Board board, Ship ship)
         {
