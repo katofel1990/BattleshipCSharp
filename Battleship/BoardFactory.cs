@@ -19,6 +19,7 @@ namespace Battleship
             {
                 AddOneShipRandom(board, ship);
             }
+            board.DeleteBouys();
         }
 
         void AddOneShipRandom(Board board, Ship ship)
