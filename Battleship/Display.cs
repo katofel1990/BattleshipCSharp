@@ -6,8 +6,8 @@ namespace Battleship
 {
     public class Display
     {
-        private ConsoleColor Background { get; set; } 
-        private ConsoleColor Foreground { get; set; }
+        private ConsoleColor Background { get; } 
+        private ConsoleColor Foreground { get; }
 
         public Display()
         {
@@ -16,11 +16,12 @@ namespace Battleship
         }
         public void PrintBoard(Board board)
         {
+            Console.Clear();
             Square[,] boardToPrint = board.ocean;
             Console.WriteLine("    A B C D E F G H I J ");
             for (int i = 0; i < boardToPrint.GetLength(0); i++)
             {
-                if (i >= 9)
+                if (i >= board.Size-1)
                 {
                     Console.Write($" {i + 1} ");
                 }
@@ -68,7 +69,40 @@ namespace Battleship
             }
         }
 
-        public void printMenu(List<string> options, int light)
+        public void PrintBoard(Board board, int x, int y)
+        {
+            Console.Clear();
+            Square[,] boardToPrint = board.ocean;
+            Console.WriteLine("    A B C D E F G H I J ");
+            for (int i = 0; i < boardToPrint.GetLength(0); i++)
+            {
+                if (i >= board.Size - 1)
+                {
+                    Console.Write($" {i + 1} ");
+                }
+                else { Console.Write($"  {i + 1} "); }
+
+                for (int j = 0; j < boardToPrint.GetLength(1); j++)
+                {
+                    if ((j == x) && (i == y))
+                    {
+                        if (board.ocean[x,y].Status == Square.SquareStatus.empty)
+                        {
+                            Print("X ", ConsoleColor.Green);
+                        }
+                        else
+                        {
+                            Print("X ", ConsoleColor.Red);
+                        }
+                    }
+                    else { Print($"{boardToPrint[j, i].GetCharacter()} ", boardToPrint[j, i].GetColore()); }
+
+                }
+                Console.WriteLine();
+            }
+        }
+
+        public void PrintMenu(List<string> options, int light)
         {
             for (int i = 0; i < options.Count; i++)
             {
@@ -78,7 +112,7 @@ namespace Battleship
                 }
                 else
                 {
-                    Print(options[i]);
+                    PrintMassage(options[i]);
                 }
             }
         }
@@ -107,7 +141,7 @@ namespace Battleship
             Console.Write(c);
             Console.ForegroundColor = Foreground;
         }
-        private void print(char c)
+        private void Print(char c)
         {
             Console.Write(c);
         }

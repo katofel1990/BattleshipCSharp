@@ -13,8 +13,31 @@ namespace Battleship
             this.display = display;
             this.input = input;
         }
-        void RandomPlacement()
-        { }
+        public void RandomPlacement(Board board, List<Ship> ships)
+        {
+            foreach (var ship in ships)
+            {
+                AddOneShipRandom(board, ship);
+            }
+        }
+
+        void AddOneShipRandom(Board board, Ship ship)
+        {
+            do
+            {
+                NewRandomPosition(ship, board.Size);
+            }
+            while (!board.possibleShip(ship));
+
+            board.AddShip(ship);
+        }
+        void NewRandomPosition(Ship ship, int sizeMap)
+        {
+            Random rnd = new Random();
+            ship.direction = rnd.Next(2) == 0 ? Ship.Direction.horizontal : Ship.Direction.vertical;
+            ship.OriginPoint = (ship.direction == Ship.Direction.horizontal ?  (rnd.Next(sizeMap - ship.length + 1), rnd.Next(sizeMap)) : (rnd.Next(sizeMap), rnd.Next(sizeMap - ship.length + 1)));          
+        }
+
         public void ManualPlacement(Board board, List<Ship> ships)
         {
             foreach (var ship in ships)
@@ -22,7 +45,7 @@ namespace Battleship
                 AddOneShipManual(board, ship);
             }
         }
-        public void AddOneShipManual(Board board, Ship ship)
+        void AddOneShipManual(Board board, Ship ship)
         {
             int x = 0;
             int y = 0;

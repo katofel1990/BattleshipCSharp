@@ -21,13 +21,33 @@ namespace Battleship
             Input input = new Input();
             Display display = new Display();
             Board board = new Board();
+            MainMenu menu = new MainMenu(display, input);
+            List<string> options = new List<string>() { "Random Placemant", "Manual Placement", "Exit" };
+            int o = menu.Menu(options);
             BoardFactory fac = new BoardFactory(display, input);
             List<Ship> ships = new List<Ship>();
-            ships.Add(new Ship(1));
-            ships.Add(new Ship(2));
-            ships.Add(new Ship(3));
-            ships.Add(new Ship(4));
-            fac.ManualPlacement(board, ships);
+            List<int> shipsCount = new List<int>() { 1, 2, 3, 4 };
+            List<int> shipsSize = new List<int>() { 4, 3, 2, 1 };
+
+            for (int i = 0; i < shipsCount.Count; i++)
+            {
+                for (int j = 0; j < shipsCount[i]; j++)
+                {
+                    ships.Add(new Ship(shipsSize[i]));
+                }
+            }
+
+
+            if (o == 0)
+            {               
+                fac.RandomPlacement(board, ships);
+            }
+            else if (o == 1)
+            {
+                fac.ManualPlacement(board, ships);
+            }
+            
+            display.PrintBoard(board);
         }
 
     }
