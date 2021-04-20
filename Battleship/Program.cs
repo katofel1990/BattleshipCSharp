@@ -5,21 +5,25 @@ namespace Battleship
 {
     class Program
     {
+        // Główny main 
+
         //static void Main(string[] args)
         //{
-        //    var mainMenu = new MainMenu();
         //    var display = new Display();
         //    var input = new Input();
+        //    var mainMenu = new MainMenu(display, input);
         //    var battleApp = new BattleshipApplication(mainMenu, display, input);
 
         //    battleApp.Run();
         //}
 
 
+
+
+        // Main do testowana pojedyńczych funkcji
         static void Main(string[] args)
         {
             Input input = new Input();
-            MainMenu menu = new MainMenu();
             Display display = new Display();
             Board board = new Board();
             MainMenu menu = new MainMenu(display, input);
