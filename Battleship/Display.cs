@@ -29,7 +29,14 @@ namespace Battleship
 
                 for (int j = 0; j < boardToPrint.GetLength(1); j++)
                 {
-                    Print($"{boardToPrint[j, i].GetCharacter()} ", boardToPrint[j, i].GetColore());
+                    if (boardToPrint[j, i].Status == Square.SquareStatus.ship)
+                    {
+                        Print("~ ", ConsoleColor.Blue);
+                    }
+                    else
+                    {
+                        Print($"{boardToPrint[j, i].GetCharacter()} ", boardToPrint[j, i].GetColore());
+                    }
                 }
                 Console.WriteLine();
             }
@@ -95,7 +102,18 @@ namespace Battleship
                             Print("X ", ConsoleColor.Red);
                         }
                     }
-                    else { Print($"{boardToPrint[j, i].GetCharacter()} ", boardToPrint[j, i].GetColore()); }
+                    else 
+                    {
+                        if (boardToPrint[j, i].Status == Square.SquareStatus.ship)
+                        {
+                            Print("~ ", ConsoleColor.Blue);
+                        }
+                        else
+                        {
+                            Print($"{boardToPrint[j, i].GetCharacter()} ", boardToPrint[j, i].GetColore());
+                        }
+                        
+                    }
 
                 }
                 Console.WriteLine();

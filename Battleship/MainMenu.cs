@@ -5,6 +5,15 @@ namespace Battleship
 {
     public class MainMenu
     {
+        Display display { get; }
+        Input input { get; }
+
+        public MainMenu(Display display, Input input)
+        {
+            this.display = display;
+            this.input = input;
+        }
+
         public string AskForGameMode()
         {
             Console.Clear();
@@ -15,14 +24,6 @@ namespace Battleship
             Console.WriteLine("3. Exit");
 
             return Console.ReadLine();
-        }
-        Display display { get; }
-        Input input { get; }
-
-        public MainMenu(Display display, Input input)
-        {
-            this.display = display;
-            this.input = input;
         }
 
         public int Menu(List<string> options)
