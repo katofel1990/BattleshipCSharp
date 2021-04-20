@@ -6,10 +6,12 @@ namespace Battleship
 {
     public class Player
     {
+        public string Name { get; }
         public List<Ship> Ships { get; } = new List<Ship>();
 
-        public Player()
+        public Player(string name)
         {
+            Name = name;
         }
 
         public bool IsAlive()

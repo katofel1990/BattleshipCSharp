@@ -5,8 +5,6 @@ namespace Battleship
 {
     class Program
     {
-        // Główny main 
-
         static void Main(string[] args)
         {
             var display = new Display();
