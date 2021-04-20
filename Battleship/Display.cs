@@ -99,7 +99,7 @@ namespace Battleship
                 {
                     if ((j == x) && (i == y))
                     {
-                        if (board.ocean[x,y].Status == Square.SquareStatus.empty)
+                        if (board.ocean[x,y].Status == Square.SquareStatus.empty || board.ocean[x, y].Status == Square.SquareStatus.ship)
                         {
                             Print("X ", ConsoleColor.Green);
                         }

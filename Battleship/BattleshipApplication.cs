@@ -44,8 +44,7 @@ namespace Battleship
                         break;
                     case 1:
                         player1.Name = AskForName("Player1");
-                        player2 = (ComputerPlayer)player2;
-                        player2.Name = "Computer";
+                        player2 = new ComputerPlayer("Computer");
                         PlacementShips(shipsTemplate, player1);
                         _factory.RandomPlacement(player2.Board, GeneratePlayerShips(shipsTemplate));
                         break;
@@ -59,10 +58,7 @@ namespace Battleship
 
                 // Start Game
 
-
-
                 _game = new Game(player1, player2);
-
                 _game.ConfigureUI(_display, _input);
                 _game.Run();
 

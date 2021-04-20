@@ -28,6 +28,67 @@ namespace Battleship
             return false;
         }
 
+        public void OneShot()
+        {
+            Display display = new Display();  // do wykasowania
+            Input input = new Input(); // do wykasowania
 
-    }
+            int x = 0;
+            int y = 0;
+            int size = Board.Size;
+            ConsoleKey key;            
+            bool wrongPositionMassage = false;
+            
+            do
+            {
+                display.PrintBoard(Board, x, y);
+                if (wrongPositionMassage)
+                {
+                    display.PrintMassage("Ivalid Shoot", ConsoleColor.Red);
+                    wrongPositionMassage = false;
+                }
+                key = input.ReadKey();
+
+                switch (key)
+                {
+                    case ConsoleKey.UpArrow:
+
+                        if (y == 0) { y = size - 1; }
+                        else { y--; }
+                        break;
+                    case ConsoleKey.DownArrow:
+                        if ((y == size - 1)) { y = 0; }
+                        else { y++; }
+                        break;
+                    case ConsoleKey.LeftArrow:
+                        if (x == 0) { x = size - 1; }
+                        else { x--; }
+                        break;
+                    case ConsoleKey.RightArrow:
+                        if ((x == size - 1)) { x = 0; }
+                        else { x++; }
+                        break;
+                    case ConsoleKey.Enter:
+                        if (Board.ocean[x, y].Status == Square.SquareStatus.empty || Board.ocean[x, y].Status == Square.SquareStatus.ship)
+                        {
+                            Board.ocean[x, y].Status = Board.ocean[x, y].Status == Square.SquareStatus.ship ? Square.SquareStatus.hit : Square.SquareStatus.missed;
+                            //if (Board.ocean[x, y].CourentShip.IsAlive())
+                            //{
+                            //    Board.MarkAdjacentSquares(Board.ocean[x, y].CourentShip);
+                            //}
+                            
+                        }
+                        else
+                        {
+                            wrongPositionMassage = true;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            } while (true);
+
+            
+        }
+}
 }

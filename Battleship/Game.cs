@@ -33,10 +33,10 @@ namespace Battleship
             Player currentPlayer = Player1;
             Player nextPlayer = Player2;
 
-            while (currentPlayer.IsAlive())
+            while (true)
             {
-                _display.PrintMassage($"{currentPlayer.Name}'s turn");
-                //_display.PrintEnemyBoard(Boards[nextPlayer]); // TODO add and use cursor to select where to shoot
+
+                nextPlayer.OneShot();
             }
         }
     }

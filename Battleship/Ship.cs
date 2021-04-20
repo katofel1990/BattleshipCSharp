@@ -66,6 +66,7 @@ namespace Battleship
                     return true;
                 }
             }
+
             return false;
         }
     }
