@@ -8,24 +8,19 @@ namespace Battleship
     {
         Display _display;
         Input _input;
-        BoardFactory _factory;
         public Player Player1 { get; }
         public Player Player2 { get; }
-        public Dictionary<Player, Board> Boards { get; } = new Dictionary<Player, Board>();
 
-        public Game(Player player1, Player player2, int boardSize)
+        public Game(Player player1, Player player2)
         {
             Player1 = player1;
             Player2 = player2;
-            Boards.Add(Player1, new Board(boardSize));
-            Boards.Add(Player2, new Board(boardSize));
         }
 
         public void ConfigureUI(Display d, Input i)
         {
             _display = d;
             _input = i;
-            _factory = new BoardFactory(_display, _input);
         }
 
         public void Run()

@@ -66,10 +66,10 @@ namespace Battleship
                 switch (key)
                 {
                     case ConsoleKey.UpArrow:
-                        x = x == 0 ? options.Count - 1 : x--;
+                        x = (x == 0 ? options.Count - 1 : x - 1);
                         break;
                     case ConsoleKey.DownArrow:
-                        x = x == options.Count - 1 ? x = 0 : x++;
+                        x = (x == options.Count - 1 ? 0 : x + 1);
                         break;
                     case ConsoleKey.Enter:
                         return x;
