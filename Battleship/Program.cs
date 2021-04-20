@@ -31,7 +31,6 @@ namespace Battleship
             int o = menu.Menu(options);
             BoardFactory fac = new BoardFactory(display, input);
             List<Ship> ships = new List<Ship>();
-            ASCII.Welcome();
             menu.AskForGameMode();
             ships.Add(new Ship(1));
             ships.Add(new Ship(2));

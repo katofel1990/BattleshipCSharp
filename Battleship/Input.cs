@@ -10,5 +10,9 @@ namespace Battleship
         {
             return Console.ReadKey().Key;
         }
+        public string ReadLine()
+        {
+            return Console.ReadLine();
+        }
     }
 }
