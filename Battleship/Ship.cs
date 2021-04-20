@@ -57,5 +57,16 @@ namespace Battleship
         {
             squares.Add(square);
         }
+        public bool IsAlive()
+        {
+            foreach (var square in squares)
+            {
+                if (square.Status == Square.SquareStatus.ship)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }
