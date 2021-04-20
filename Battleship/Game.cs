@@ -6,10 +6,10 @@ namespace Battleship
 {
     public class Game
     {
+        Display _display;
+        Input _input;
         public Player Player1 { get; }
         public Player Player2 { get; }
-        public Board Player1Board { get; set; }
-        public Board Player2Board { get; set; }
 
         public Game(Player player1, Player player2)
         {
@@ -17,9 +17,27 @@ namespace Battleship
             Player2 = player2;
         }
 
+        public void ConfigureUI(Display d, Input i)
+        {
+            _display = d;
+            _input = i;
+        }
+
         public void Run()
         {
-            throw new NotImplementedException();
-        }       
+            Fight();
+        }
+
+        private void Fight()
+        {
+            Player currentPlayer = Player1;
+            Player nextPlayer = Player2;
+
+            while (currentPlayer.IsAlive())
+            {
+                _display.PrintMassage($"{currentPlayer.Name}'s turn");
+                //_display.PrintEnemyBoard(Boards[nextPlayer]); // TODO add and use cursor to select where to shoot
+            }
+        }
     }
 }

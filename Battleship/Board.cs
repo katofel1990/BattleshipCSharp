@@ -9,9 +9,9 @@ namespace Battleship
         public Square[,] ocean { get; private set; }
         public int Size { get; private set; }
 
-        public Board() // TODO pass size (or widht and height) here - bart
+        public Board(int size) // TODO pass size (or widht and height) here - bart
         {
-            Size = 10;
+            Size = size;
             ocean = NewOcean(Size);
         }
         void AddWatter(Square[,] o)
