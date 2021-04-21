@@ -44,10 +44,10 @@ namespace Battleship
                         break;
                     case 1:
                         player1.Name = AskForName("Player1");
-                        player2 = (ComputerPlayer)player2;
-                        player2.Name = "Computer";
+                        player2 = new ComputerPlayer("Computer");
                         PlacementShips(shipsTemplate, player1);
-                        _factory.RandomPlacement(player2.Board, GeneratePlayerShips(shipsTemplate));
+                        GeneratePlayerShips(shipsTemplate, player2);
+                        _factory.RandomPlacement(player2.Board, player2.Ships);
                         break;
                     case 2:
                         isRunning = false;
@@ -59,10 +59,7 @@ namespace Battleship
 
                 // Start Game
 
-
-
                 _game = new Game(player1, player2);
-
                 _game.ConfigureUI(_display, _input);
                 _game.Run();
 
@@ -79,11 +76,13 @@ namespace Battleship
                 switch (optionsPlacement)
                 {
                     case 0:
-                        _factory.RandomPlacement(player.Board, GeneratePlayerShips(shipsTemplate));
+                        GeneratePlayerShips(shipsTemplate, player);
+                        _factory.RandomPlacement(player.Board, player.Ships);
                         runningPlacement = false;
                         break;
                     case 1:
-                        _factory.ManualPlacement(player.Board, GeneratePlayerShips(shipsTemplate));
+                        GeneratePlayerShips(shipsTemplate, player);
+                        _factory.ManualPlacement(player.Board, player.Ships);
                         runningPlacement = false;
                         break;
                     case 2:
@@ -95,17 +94,15 @@ namespace Battleship
             } while (runningPlacement);
         }
 
-        private List<Ship> GeneratePlayerShips(List<(int length, int count)> shipsTemplate)
+        private void GeneratePlayerShips(List<(int length, int count)> shipsTemplate, Player player)
         {
-            List<Ship> result = new List<Ship>();
             foreach (var shipTuple in shipsTemplate)
             {
                 for (int i = 0; i < shipTuple.count; i++)
                 {
-                    result.Add(new Ship(shipTuple.length));
+                    player.Ships.Add(new Ship(shipTuple.length));
                 }
             }
-            return result;
         }
 
         private string AskForName(string playerID)

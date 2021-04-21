@@ -18,6 +18,9 @@ namespace Battleship
         {
             Console.Clear();
             Square[,] boardToPrint = board.ocean;
+            Square s = new Square(11, 11);
+            string water = s.GetCharacter().ToString();
+            ConsoleColor waterColor = s.GetColore();
             Console.WriteLine("    A B C D E F G H I J ");
             for (int i = 0; i < boardToPrint.GetLength(0); i++)
             {
@@ -31,7 +34,7 @@ namespace Battleship
                 {
                     if (boardToPrint[j, i].Status == Square.SquareStatus.ship)
                     {
-                        Print("~ ", ConsoleColor.Blue);
+                        Print($"{water} ", waterColor);
                     }
                     else
                     {
@@ -66,7 +69,7 @@ namespace Battleship
                         }
                         else
                         {
-                            Print("X ", ConsoleColor.Red);
+                            Print("X ", ConsoleColor.DarkRed);
                         }
                     }
                     else { Print($"{boardToPrint[j, i].GetCharacter()} ", boardToPrint[j, i].GetColore());}
@@ -80,6 +83,9 @@ namespace Battleship
         {
             Console.Clear();
             Square[,] boardToPrint = board.ocean;
+            Square s = new Square(11,11);
+            string water = s.GetCharacter().ToString();
+            ConsoleColor waterColor = s.GetColore();
             Console.WriteLine("    A B C D E F G H I J ");
             for (int i = 0; i < boardToPrint.GetLength(0); i++)
             {
@@ -93,7 +99,7 @@ namespace Battleship
                 {
                     if ((j == x) && (i == y))
                     {
-                        if (board.ocean[x,y].Status == Square.SquareStatus.empty)
+                        if (board.ocean[x,y].Status == Square.SquareStatus.empty || board.ocean[x, y].Status == Square.SquareStatus.ship)
                         {
                             Print("X ", ConsoleColor.Green);
                         }
@@ -106,12 +112,13 @@ namespace Battleship
                     {
                         if (boardToPrint[j, i].Status == Square.SquareStatus.ship)
                         {
-                            Print("~ ", ConsoleColor.Blue);
+                            Print($"{water} ", waterColor);
+                        }                        
+                        else 
+                        { 
+                            Print($"{boardToPrint[j, i].GetCharacter()} ", boardToPrint[j, i].GetColore()); 
                         }
-                        else
-                        {
-                            Print($"{boardToPrint[j, i].GetCharacter()} ", boardToPrint[j, i].GetColore());
-                        }
+                        
                         
                     }
 

@@ -9,6 +9,7 @@ namespace Battleship
         public Square[,] ocean { get; private set; }
         public int Size { get; private set; }
 
+
         public Board(int size) // TODO pass size (or widht and height) here - bart
         {
             Size = size;
@@ -40,19 +41,22 @@ namespace Battleship
                 {
                     square = ocean[ship.OriginPoint.x + i, ship.OriginPoint.y];
                     square.Status = Square.SquareStatus.ship;
+                    square.CourentShip = ship;
+                    
                     ship.AddSquare(square);
                 }
                 else
                 {
                     square = ocean[ship.OriginPoint.x, ship.OriginPoint.y + i];
                     square.Status = Square.SquareStatus.ship;
+                    square.CourentShip = ship;
                     ship.AddSquare(square);
                 }
                 MarkAdjacentSquares(ship);
             }
         }
 
-        private void MarkAdjacentSquares(Ship ship)
+        public void MarkAdjacentSquares(Ship ship)
         {
             foreach (Square square in ship.squares)
             {
@@ -104,6 +108,19 @@ namespace Battleship
                 }
             }
             return true;
+        }
+        public void DeleteBouys()
+        {
+            for (int i = 0; i < Size; i++)
+            {
+                for (int j = 0; j < Size; j++)
+                {
+                    if (ocean[i,j].Status == Square.SquareStatus.bouy)
+                    {
+                        ocean[i, j].Status = Square.SquareStatus.empty;
+                    }
+                }
+            }
         }
     }
 }
