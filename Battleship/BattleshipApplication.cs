@@ -11,6 +11,7 @@ namespace Battleship
         MainMenu _mainMenu;
         Game _game;
         BoardFactory _factory;
+        ASCII _ascii;
 
         public BattleshipApplication(MainMenu menu, Display display, Input input)
         {
@@ -18,6 +19,7 @@ namespace Battleship
             _input = input;
             _mainMenu = menu;
             _factory = new BoardFactory(_display, _input);
+            _ascii = new ASCII(_display);
         }
         public void Run()
         {
@@ -26,7 +28,8 @@ namespace Battleship
             {
                 Player player1 = new Player("Player1");
                 Player player2 = new Player("Player2");
-                int option = _mainMenu.Menu(new List<string>() { "Human vs Human", "Human vs AI", "Exit" });
+                _ascii.Welcome();
+                int option = _mainMenu.Menu(new List<string>() { "Human vs Human", "Human vs AI", "Exit" }, _ascii.MainMenuText());
                 List<(int length, int count)> shipsTemplate = new List<(int length, int count)>
                 {
                     (4, 1), (3, 2), (2, 3), (1, 4)
@@ -39,15 +42,15 @@ namespace Battleship
                     case 0:
                         player1.Name = AskForName("Player1");
                         player2.Name = AskForName("Player2");
-                        PlacementShips(shipsTemplate, player1);
-                        PlacementShips(shipsTemplate, player2);
+                        PlaceShips(shipsTemplate, player1);
+                        PlaceShips(shipsTemplate, player2);
+
                         break;
                     case 1:
                         player1.Name = AskForName("Player1");
                         player2 = new ComputerPlayer("Computer");
-                        PlacementShips(shipsTemplate, player1);
-                        GeneratePlayerShips(shipsTemplate, player2);
-                        _factory.RandomPlacement(player2.Board, player2.Ships);
+                        PlaceShips(shipsTemplate, player1);
+                        PlaceComputerShips(player2, shipsTemplate);
                         break;
                     case 2:
                         isRunning = false;
@@ -67,7 +70,13 @@ namespace Battleship
 
         }
 
-        private void PlacementShips(List<(int length, int count)> shipsTemplate, Player player)
+        private void PlaceComputerShips(Player player2, List<(int length, int count)> shipsTemplate)
+        {
+            GeneratePlayerShips(shipsTemplate, player2);
+            _factory.RandomPlacement(player2.Board, player2.Ships);
+        }
+
+        private void PlaceShips(List<(int length, int count)> shipsTemplate, Player player)
         {
             bool runningPlacement = true;
             do

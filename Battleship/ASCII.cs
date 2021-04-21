@@ -6,7 +6,14 @@ namespace Battleship
 {
     public class ASCII
     {
-        public static void Welcome()
+        Display _display;
+
+        public ASCII(Display display)
+        {
+            _display = display;
+        }
+
+        public void Welcome()
         {
             var title = @"
 
@@ -35,21 +42,12 @@ namespace Battleship
 
                                             PRESS ANY KEY TO CONTINUE . . . 
 ";
-
-            Console.WriteLine(title);
+            _display.Clear();
+            _display.PrintMassage(title);
             Console.ReadKey();
         }
 
-        public static void PressKey()
-        {
-            string wait = @"
-                                            PRESS ANY KEY TO CONTINUE . . . 
-            ";
-            Console.WriteLine(wait);
-            Console.ReadKey();
-        }
-
-        public static void MainMenuText()
+        public string MainMenuText()
         {
             string mainMenu = @"
                                       __  __       _         __  __                  
@@ -60,7 +58,7 @@ namespace Battleship
                                      |_|  |_|\__,_|_|_| |_| |_|  |_|\___|_| |_|\__,_|
                                                  
                                                  ";
-            Console.WriteLine(mainMenu);
+            return mainMenu;
         }
     }
 }

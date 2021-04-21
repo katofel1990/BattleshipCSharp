@@ -14,9 +14,14 @@ namespace Battleship
             Background = Console.BackgroundColor;
             Foreground = Console.ForegroundColor;
         }
-        public void PrintBoard(Board board)
+
+        public void Clear()
         {
             Console.Clear();
+        }
+        public void PrintBoard(Board board)
+        {
+            Clear();
             Square[,] boardToPrint = board.ocean;
             Square s = new Square(11, 11);
             string water = s.GetCharacter().ToString();
@@ -48,7 +53,7 @@ namespace Battleship
         public void PrintBoard(Board board, Ship ship)
         {
             (int xmin, int xmax, int ymin, int ymax) shipCords = GenerateTuple(ship.OriginPoint.x, ship.OriginPoint.y, ship.length, ship.direction);
-            Console.Clear();
+            Clear();
             Square[,] boardToPrint = board.ocean;
             Console.WriteLine("    A B C D E F G H I J ");
             for (int i = 0; i < boardToPrint.GetLength(0); i++)
@@ -81,7 +86,7 @@ namespace Battleship
 
         public void PrintBoard(Board board, int x, int y)
         {
-            Console.Clear();
+            Clear();
             Square[,] boardToPrint = board.ocean;
             Square s = new Square(11,11);
             string water = s.GetCharacter().ToString();

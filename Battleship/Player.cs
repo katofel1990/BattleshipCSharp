@@ -29,10 +29,11 @@ namespace Battleship
             return false;
         }
 
-        public void OneShot()
+        public void OneShot(string currentPlayerName)
         {
             Display display = new Display();  // do wykasowania
             Input input = new Input(); // do wykasowania
+            
 
             int x = 0;
             int y = 0;
@@ -43,6 +44,7 @@ namespace Battleship
             do
             {
                 display.PrintBoard(Board, x, y);
+                display.PrintMassage($"\n{currentPlayerName} turn.");
                 if (wrongPositionMassage)
                 {
                     display.PrintMassage("Ivalid Shoot", ConsoleColor.Red);
