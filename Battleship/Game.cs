@@ -8,8 +8,8 @@ namespace Battleship
     {
         Display _display;
         Input _input;
-        public Player Player1 { get; }
-        public Player Player2 { get; }
+        public Player Player1 { get; private set; }
+        public Player Player2 { get; private set; }
 
         public Game(Player player1, Player player2)
         {
@@ -25,19 +25,40 @@ namespace Battleship
 
         public void Run()
         {
-            Fight();
+            while (Player1.IsAlive() && Player2.IsAlive())
+            {
+                Fight();
+                SwitchPlayers();
+            }
+
+            var winner = GetWinner();
+
+            // TODO handle win
+        }
+
+        private void SwitchPlayers()
+        {
+            Player temp = Player1;
+            Player1 = Player2;
+            Player2 = temp;
         }
 
         private void Fight()
         {
-            Player currentPlayer = Player1;
-            Player nextPlayer = Player2;
+            //_display.PrintBoards();
+            //Player2.Shoot();
+            //_display.PrintBoards;
+            //WaitForTime(700);
+        }
 
-            while (currentPlayer.IsAlive())
-            {
-                _display.PrintMassage($"{currentPlayer.Name}'s turn");
-                //_display.PrintEnemyBoard(Boards[nextPlayer]); // TODO add and use cursor to select where to shoot
-            }
+        private static void WaitForTime(int miliseconds)
+        {
+            System.Threading.Thread.Sleep(miliseconds);
+        }
+
+        private Player GetWinner()
+        {
+            return Player1.IsAlive() ? Player1 : Player2;
         }
     }
 }
