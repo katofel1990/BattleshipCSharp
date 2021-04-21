@@ -42,6 +42,7 @@ namespace Battleship
                     square = ocean[ship.OriginPoint.x + i, ship.OriginPoint.y];
                     square.Status = Square.SquareStatus.ship;
                     square.CourentShip = ship;
+                    
                     ship.AddSquare(square);
                 }
                 else

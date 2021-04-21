@@ -69,7 +69,7 @@ namespace Battleship
                         }
                         else
                         {
-                            Print("X ", ConsoleColor.Red);
+                            Print("X ", ConsoleColor.DarkRed);
                         }
                     }
                     else { Print($"{boardToPrint[j, i].GetCharacter()} ", boardToPrint[j, i].GetColore());}

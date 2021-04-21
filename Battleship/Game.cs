@@ -33,9 +33,8 @@ namespace Battleship
             Player currentPlayer = Player1;
             Player nextPlayer = Player2;
 
-            while (true)
+            while (currentPlayer.IsAlive())
             {
-
                 nextPlayer.OneShot();
             }
         }

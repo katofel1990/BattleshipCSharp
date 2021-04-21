@@ -7,7 +7,7 @@ namespace Battleship
     public class Player
     {
         public string Name { get; set; }
-        public List<Ship> Ships { get; } = new List<Ship>();
+        public List<Ship> Ships { get; set; } = new List<Ship>();
         public Board Board { get; }
 
         public Player(string name)
@@ -18,6 +18,7 @@ namespace Battleship
 
         public bool IsAlive()
         {
+
             foreach (var ship in Ships)
             {
                 if (ship.IsAlive())
@@ -38,7 +39,7 @@ namespace Battleship
             int size = Board.Size;
             ConsoleKey key;            
             bool wrongPositionMassage = false;
-            
+            bool shoot = true;
             do
             {
                 display.PrintBoard(Board, x, y);
@@ -72,11 +73,15 @@ namespace Battleship
                         if (Board.ocean[x, y].Status == Square.SquareStatus.empty || Board.ocean[x, y].Status == Square.SquareStatus.ship)
                         {
                             Board.ocean[x, y].Status = Board.ocean[x, y].Status == Square.SquareStatus.ship ? Square.SquareStatus.hit : Square.SquareStatus.missed;
-                            //if (!Board.ocean[x, y].CourentShip.IsAlive())
-                            //{
-                            //    Board.MarkAdjacentSquares(Board.ocean[x, y].CourentShip);
-                            //}
-                            
+                            if (Board.ocean[x,y].Status == Square.SquareStatus.hit)
+                            {
+                                if (!Board.ocean[x, y].CourentShip.IsAlive())
+                                {
+                                    Board.MarkAdjacentSquares(Board.ocean[x, y].CourentShip);
+                                }
+                                
+                            }
+                            shoot = false;
                         }
                         else
                         {
@@ -86,7 +91,7 @@ namespace Battleship
                     default:
                         break;
                 }
-            } while (true);
+            } while (shoot);
 
             
         }
