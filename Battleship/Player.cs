@@ -72,7 +72,7 @@ namespace Battleship
                         if (Board.ocean[x, y].Status == Square.SquareStatus.empty || Board.ocean[x, y].Status == Square.SquareStatus.ship)
                         {
                             Board.ocean[x, y].Status = Board.ocean[x, y].Status == Square.SquareStatus.ship ? Square.SquareStatus.hit : Square.SquareStatus.missed;
-                            //if (Board.ocean[x, y].CourentShip.IsAlive())
+                            //if (!Board.ocean[x, y].CourentShip.IsAlive())
                             //{
                             //    Board.MarkAdjacentSquares(Board.ocean[x, y].CourentShip);
                             //}
