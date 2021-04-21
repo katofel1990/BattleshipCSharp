@@ -8,6 +8,7 @@ namespace Battleship
     {
         Display _display;
         Input _input;
+        ASCII _ascii;
         public Player CurrentPlayer { get; private set; }
         public Player NextPlayer { get; private set; }
 
@@ -21,6 +22,7 @@ namespace Battleship
         {
             _display = d;
             _input = i;
+            _ascii = new ASCII(_display);
         }
 
         public void Run()
@@ -34,7 +36,8 @@ namespace Battleship
             var winner = NextPlayer;
 
             _display.PrintMassage($"{winner.Name} has won. Congratulations!");
-            WaitForTime(2000);
+            _display.PrintMassage(_ascii.PressAnyKey());
+            _input.ReadKey();
 
             // TODO handle win
         }
@@ -49,12 +52,6 @@ namespace Battleship
         private void Fight()
         {
             NextPlayer.OneShot(CurrentPlayer.Name);
-            WaitForTime(700);
-        }
-
-        private static void WaitForTime(int miliseconds)
-        {
-            System.Threading.Thread.Sleep(miliseconds);
         }
     }
 }

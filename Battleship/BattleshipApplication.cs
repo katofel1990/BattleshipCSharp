@@ -59,6 +59,7 @@ namespace Battleship
                         break;
                 }
 
+                if(!isRunning) break;
 
                 // Start Game
 

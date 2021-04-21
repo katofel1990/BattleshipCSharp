@@ -15,6 +15,10 @@ namespace Battleship
             Foreground = Console.ForegroundColor;
         }
 
+        public void WaitForTime(int milliseconds)
+        {
+            System.Threading.Thread.Sleep(milliseconds);
+        }
         public void Clear()
         {
             Console.Clear();

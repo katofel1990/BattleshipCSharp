@@ -47,6 +47,14 @@ namespace Battleship
             Console.ReadKey();
         }
 
+        public string PressAnyKey()
+        {
+            string pressKey = @"                                            
+                                            PRESS ANY KEY TO CONTINUE . . . 
+";
+            return pressKey;
+        }
+
         public string MainMenuText()
         {
             string mainMenu = @"

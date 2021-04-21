@@ -83,6 +83,8 @@ namespace Battleship
                                 }
                                 
                             }
+                            display.PrintBoard(Board);
+                            display.WaitForTime(1000);
                             shoot = false;
                         }
                         else
