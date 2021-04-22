@@ -34,8 +34,9 @@ namespace Battleship
             }
 
             var winner = NextPlayer;
+            int score = winner.GetScore();
 
-            _display.PrintMessage($"{winner.Name} has won. Congratulations!");
+            _display.PrintMessage($"{winner.Name} has won. Score: {score}");
             _display.PrintMessage(_ascii.PressAnyKey());
             _input.ReadKey();
 

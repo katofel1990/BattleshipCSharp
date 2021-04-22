@@ -96,8 +96,28 @@ namespace Battleship
                         break;
                 }
             } while (shoot);
-
-            
         }
-}
+
+        public int GetScore()
+        {
+            int score = 100;
+            score += GetSquaresCount() * 10;
+            return score;
+        }
+
+        private int GetSquaresCount()
+        {
+            int result = 0;
+
+            foreach (var ship in Ships)
+            {
+                foreach(var square in ship.squares)
+                {
+                    if (square.Status == Square.SquareStatus.ship) result++;
+                }
+            }
+
+            return result;
+        }
+    }
 }
