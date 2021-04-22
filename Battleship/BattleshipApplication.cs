@@ -12,24 +12,29 @@ namespace Battleship
         Game _game;
         BoardFactory _factory;
         ASCII _ascii;
+        HighScores _highScores;
 
-        public BattleshipApplication(MainMenu menu, Display display, Input input)
+        public BattleshipApplication(MainMenu menu, Display display, Input input, HighScores highScores)
         {
             _display = display;
             _input = input;
             _mainMenu = menu;
             _factory = new BoardFactory(_display, _input);
             _ascii = new ASCII(_display);
+            _highScores = highScores;
         }
         public void Run()
         {
             bool isRunning = true;
+            _ascii.Welcome();
+
             do
             {
                 Player player1 = new Player("Player1");
                 Player player2 = new Player("Player2");
-                _ascii.Welcome();
-                int option = _mainMenu.Menu(new List<string>() { "Human vs Human", "Human vs AI", "Exit" }, _ascii.MainMenuText());
+
+                _highScores.Load();
+                int option = _mainMenu.Menu(new List<string>() { "Human vs Human", "Human vs AI", "High Scores", "Exit" }, _ascii.MainMenuText());
                 List<(int length, int count)> shipsTemplate = new List<(int length, int count)>
                 {
                     (4, 1), (3, 2), (2, 3), (1, 4)
@@ -53,6 +58,11 @@ namespace Battleship
                         PlaceComputerShips(player2, shipsTemplate);
                         break;
                     case 2:
+                        _highScores.Print();
+                        _display.PrintMessage(_ascii.PressAnyKey());
+                        _input.ReadKey();
+                        continue;
+                    case 3:
                         isRunning = false;
                         break;
                     default:
@@ -63,7 +73,7 @@ namespace Battleship
 
                 // Start Game
 
-                _game = new Game(player1, player2);
+                _game = new Game(player1, player2, _highScores);
                 _game.ConfigureUI(_display, _input);
                 _game.Run();
 

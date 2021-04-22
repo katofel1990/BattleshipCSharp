@@ -9,13 +9,15 @@ namespace Battleship
         Display _display;
         Input _input;
         ASCII _ascii;
+        HighScores _highScores;
         public Player CurrentPlayer { get; private set; }
         public Player NextPlayer { get; private set; }
 
-        public Game(Player player1, Player player2)
+        public Game(Player player1, Player player2, HighScores highScores)
         {
             CurrentPlayer = player1;
             NextPlayer = player2;
+            _highScores = highScores;
         }
 
         public void ConfigureUI(Display d, Input i)
@@ -36,11 +38,12 @@ namespace Battleship
             var winner = NextPlayer;
             int score = winner.GetScore();
 
+            _highScores.Save(winner.Name, score);
+
             _display.PrintMessage($"{winner.Name} has won. Score: {score}");
             _display.PrintMessage(_ascii.PressAnyKey());
             _input.ReadKey();
 
-            // TODO handle win
         }
 
         private void SwitchPlayers()
