@@ -9,7 +9,7 @@ namespace Battleship
         public string Name { get; set; }
         public List<Ship> Ships { get; set; } = new List<Ship>();
         public Board Board { get; }
-        public Square lastShot { get; set; }
+        public Square LastShot { get; private set; }
 
         public Player(string name)
         {
@@ -83,9 +83,13 @@ namespace Battleship
                                     Board.MarkAdjacentSquares(Board.ocean[x, y].CourentShip);
                                 }                               
                             }
-                            lastShot = Board.ocean[x, y];
-                            display.PrintBoard(Board);
-                            display.WaitForTime(1000);
+                            LastShot = Board.ocean[x, y];
+
+                            //TODO jak działa system sleep
+
+                            //display.PrintBoard(Board);
+                            //display.WaitForTime(1000);
+
                             shoot = false;
                         }
                         else
