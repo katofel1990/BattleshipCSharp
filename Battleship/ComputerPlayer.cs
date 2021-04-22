@@ -11,9 +11,30 @@ namespace Battleship
 
         public override void OneShot(string currentPlayerName)
         {
+            ComputerHard();
             (int x, int y) coords = GetRandomCoords();
-            Shoot(coords);
+            if (AreCoordsValid(coords.x, coords.y))
+            {
+                Shoot(coords.x, coords.y);
+            }
+            else
+            {
+                OneShot(currentPlayerName);
+            }
         }
+
+        private void ComputerHard()
+        {
+
+        }
+        /// <summary>
+        /// IF ostatni strzał był trafny
+        /// tworzymy liste aktualnie "ostrzeliwiany statek", zawierająca potencjalne koordynaty dookoła, sprawdzamy czy żaden z nich nie jest miss
+        /// Oddajemy kolejny strzał, jeśli nie jest trafny usuwamy dany koordynat z listy i próbujemy dalej
+        /// Jeśli 
+        /// </summary>
+        /// <returns></returns>
+
 
         private (int x, int y) GetRandomCoords()
         {
@@ -22,6 +43,8 @@ namespace Battleship
 
             return (x, y);
         }
+
+        
         
     }
 }

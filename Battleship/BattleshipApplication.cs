@@ -26,7 +26,7 @@ namespace Battleship
         public void Run()
         {
             bool isRunning = true;
-            _ascii.Welcome();
+            //_ascii.Welcome();
 
             do
             {
@@ -34,7 +34,7 @@ namespace Battleship
                 Player player2 = new Player("Player2");
 
                 _highScores.Load();
-                int option = _mainMenu.Menu(new List<string>() { "Human vs Human", "Human vs AI", "High Scores", "Exit" }, _ascii.MainMenuText());
+                int option = _mainMenu.Menu(new List<string>() { "Human vs Human", "Human vs AI", "High Scores", "Exit" });
                 List<(int length, int count)> shipsTemplate = new List<(int length, int count)>
                 {
                     (4, 1), (3, 2), (2, 3), (1, 4)

@@ -73,20 +73,11 @@ namespace Battleship
                         else { x++; }
                         break;
                     case ConsoleKey.Enter:
-                        if (Board.ocean[x, y].Status == Square.SquareStatus.empty || Board.ocean[x, y].Status == Square.SquareStatus.ship)
+                        if (AreCoordsValid(x, y))
                         {
-                            Board.ocean[x, y].Status = Board.ocean[x, y].Status == Square.SquareStatus.ship ? Square.SquareStatus.hit : Square.SquareStatus.missed;
-                            if (Board.ocean[x,y].Status == Square.SquareStatus.hit)
-                            {
-                                if (!Board.ocean[x, y].CourentShip.IsAlive())
-                                {
-                                    Board.MarkAdjacentSquares(Board.ocean[x, y].CourentShip);
-                                }                               
-                            }
-                            LastShot = Board.ocean[x, y];
+                            Shoot(x, y);
 
                             //TODO jak działa system sleep
-
                             //display.PrintBoard(Board);
                             //display.WaitForTime(1000);
 
@@ -101,6 +92,30 @@ namespace Battleship
                         break;
                 }
             } while (shoot);
+        }
+
+        protected bool AreCoordsValid(int x, int y)
+        {
+            return Board.ocean[x, y].Status == Square.SquareStatus.empty || Board.ocean[x, y].Status == Square.SquareStatus.ship;
+        }
+
+        protected void Shoot(int x, int y)
+        {
+            Board.ocean[x, y].Status = Board.ocean[x, y].Status == Square.SquareStatus.ship ? Square.SquareStatus.hit : Square.SquareStatus.missed;
+            if (Board.ocean[x, y].Status == Square.SquareStatus.hit)
+            {
+                if (!Board.ocean[x, y].CourentShip.IsAlive())
+                {
+                    Board.MarkAdjacentSquares(Board.ocean[x, y].CourentShip);
+                }
+            }
+            LastShot = Board.ocean[x, y];
+
+
+
+            Display display = new Display();  // do wykasowania
+            display.PrintBoard(Board);
+            display.WaitForTime(1000);
         }
 
         public int GetScore()
