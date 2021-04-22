@@ -29,7 +29,7 @@ namespace Battleship
             return false;
         }
 
-        public void OneShot(string currentPlayerName)
+        public virtual void OneShot(string currentPlayerName)
         {
             Display display = new Display();  // do wykasowania
             Input input = new Input(); // do wykasowania
