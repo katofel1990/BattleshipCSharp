@@ -43,7 +43,7 @@ namespace Battleship
                                             PRESS ANY KEY TO CONTINUE . . . 
 ";
             _display.Clear();
-            _display.PrintMassage(title);
+            _display.PrintMessage(title);
             Console.ReadKey();
         }
 

@@ -35,8 +35,8 @@ namespace Battleship
 
             var winner = NextPlayer;
 
-            _display.PrintMassage($"{winner.Name} has won. Congratulations!");
-            _display.PrintMassage(_ascii.PressAnyKey());
+            _display.PrintMessage($"{winner.Name} has won. Congratulations!");
+            _display.PrintMessage(_ascii.PressAnyKey());
             _input.ReadKey();
 
             // TODO handle win

@@ -146,7 +146,7 @@ namespace Battleship
                 }
                 else
                 {
-                    PrintMassage(options[i]);
+                    PrintMessage(options[i]);
                 }
             }
         }
@@ -180,12 +180,12 @@ namespace Battleship
             Console.Write(c);
         }
 
-        public void PrintMassage(string msg)
+        public void PrintMessage(string msg)
         {
             Console.WriteLine(msg);
         }
 
-        public void PrintMassage(string msg, ConsoleColor col)
+        public void PrintMessage(string msg, ConsoleColor col)
         {
             Console.ForegroundColor = col;
             Console.WriteLine(msg);

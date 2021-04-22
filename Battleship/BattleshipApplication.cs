@@ -117,7 +117,7 @@ namespace Battleship
 
         private string AskForName(string playerID)
         {
-            _display.PrintMassage($"Type name for {playerID}. (A-Z, a-z, 0-9, 3 - 15 characters)");
+            _display.PrintMessage($"Type name for {playerID}. (A-Z, a-z, 0-9, 3 - 15 characters)");
             string userInput = _input.ReadLine();
             return userInput.Length > 2 && userInput.Length < 16 ? userInput : AskForName(playerID);
         }
