@@ -51,7 +51,20 @@ namespace Battleship
 
         private void Fight()
         {
-            NextPlayer.OneShot(CurrentPlayer.Name);
+            bool lastShot = true;
+            while (lastShot)
+            {
+                NextPlayer.OneShot(CurrentPlayer.Name);
+                if (NextPlayer.lastShot.Status == Square.SquareStatus.hit)
+                {
+                    NextPlayer.OneShot(CurrentPlayer.Name);
+                }
+                else
+                {
+                    lastShot = false;
+                }
+            }
+            
         }
     }
 }
