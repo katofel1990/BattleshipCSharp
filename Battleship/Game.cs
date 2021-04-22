@@ -29,7 +29,7 @@ namespace Battleship
         {
             while (CurrentPlayer.IsAlive() && NextPlayer.IsAlive())
             {
-                Fight();
+                TakeTurn();
                 SwitchPlayers();
             }
 
@@ -49,7 +49,7 @@ namespace Battleship
             NextPlayer = temp;
         }
 
-        private void Fight()
+        private void TakeTurn()
         {
             NextPlayer.OneShot(CurrentPlayer.Name);
         }
