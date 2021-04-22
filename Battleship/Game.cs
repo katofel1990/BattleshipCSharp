@@ -55,7 +55,16 @@ namespace Battleship
 
         private void TakeTurn()
         {
-            NextPlayer.OneShot(CurrentPlayer.Name);
+            bool lastShot = true;
+            while (lastShot)
+            {
+                NextPlayer.OneShot(CurrentPlayer.Name);
+                if (NextPlayer.LastShot.Status != Square.SquareStatus.hit)
+                {
+                    lastShot = false;
+                }
+            }
+            
         }
     }
 }

@@ -93,7 +93,7 @@ namespace Battleship
                         {
                             dir = Ship.Direction.vertical;
                             if (y >= size - ship.length) { y = size - ship.length; }
-                        }
+                        } 
                         else
                         {
                             dir = Ship.Direction.horizontal;
