@@ -55,16 +55,16 @@ namespace Battleship
             Ship.Direction dir = Ship.Direction.horizontal;
             ConsoleKey key;
             bool CordsNotSet = true;
-            bool wrongPositionMassage = false;
+            bool wrongPositionMessage = false;
             do
             {
                 ship.OriginPoint = (x, y);
                 ship.direction = dir;
                 display.PrintBoard(board, ship);
-                if (wrongPositionMassage)
+                if (wrongPositionMessage)
                 {
-                    display.PrintMassage("Ivalid Ship Position", ConsoleColor.Red);
-                    wrongPositionMassage = false;
+                    display.PrintMessage("Ivalid Ship Position", ConsoleColor.Red);
+                    wrongPositionMessage = false;
                 }
                 key = input.ReadKey();
                 
@@ -108,7 +108,7 @@ namespace Battleship
                         }
                         else
                         {
-                            wrongPositionMassage = true;
+                            wrongPositionMessage = true;
                         }
                         break;
                     default:

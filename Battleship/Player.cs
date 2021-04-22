@@ -40,16 +40,16 @@ namespace Battleship
             int y = 0;
             int size = Board.Size;
             ConsoleKey key;            
-            bool wrongPositionMassage = false;
+            bool wrongPositionMessage = false;
             bool shoot = true;
             do
             {
                 display.PrintBoard(Board, x, y);
-                display.PrintMassage($"\n{currentPlayerName} turn.");
-                if (wrongPositionMassage)
+                display.PrintMessage($"\n{currentPlayerName} turn.");
+                if (wrongPositionMessage)
                 {
-                    display.PrintMassage("Ivalid Shoot", ConsoleColor.Red);
-                    wrongPositionMassage = false;
+                    display.PrintMessage("Ivalid Shoot", ConsoleColor.Red);
+                    wrongPositionMessage = false;
                 }
                 key = input.ReadKey();
 
@@ -90,15 +90,35 @@ namespace Battleship
                         }
                         else
                         {
-                            wrongPositionMassage = true;
+                            wrongPositionMessage = true;
                         }
                         break;
                     default:
                         break;
                 }
             } while (shoot);
-
-            
         }
-}
+
+        public int GetScore()
+        {
+            int score = 100;
+            score += GetSquaresCount() * 10;
+            return score;
+        }
+
+        private int GetSquaresCount()
+        {
+            int result = 0;
+
+            foreach (var ship in Ships)
+            {
+                foreach(var square in ship.squares)
+                {
+                    if (square.Status == Square.SquareStatus.ship) result++;
+                }
+            }
+
+            return result;
+        }
+    }
 }

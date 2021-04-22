@@ -32,7 +32,7 @@ namespace Battleship
             do
             {
                 Console.Clear();
-                if (!String.IsNullOrEmpty(title)) display.PrintMassage(title);
+                if (!String.IsNullOrEmpty(title)) display.PrintMessage(title);
                 display.PrintMenu(options, x);
                 key = input.ReadKey();
                 switch (key)
