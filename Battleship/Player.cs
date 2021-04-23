@@ -48,7 +48,7 @@ namespace Battleship
                 _display.PrintMessage($"\n{Name} turn.");
                 if (wrongPositionMessage)
                 {
-                    _display.PrintMessage("Ivalid Shoot", ConsoleColor.Red);
+                    _display.PrintMessage("Invalid Shot", ConsoleColor.Red);
                     wrongPositionMessage = false;
                 }
                 key = _input.ReadKey();

@@ -63,7 +63,7 @@ namespace Battleship
                 _display.PrintBoard(board, ship);
                 if (wrongPositionMessage)
                 {
-                    _display.PrintMessage("Ivalid Ship Position", ConsoleColor.Red);
+                    _display.PrintMessage("Invalid Ship Position", ConsoleColor.Red);
                     wrongPositionMessage = false;
                 }
                 key = _input.ReadKey();
