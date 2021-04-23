@@ -23,7 +23,7 @@ namespace Battleship
                 }
             }
             (int x, int y) coords = GetRandomCoords();
-            if (AreCoordsValid(coords.x, coords.y))
+            if (CoordsAreValid(coords.x, coords.y))
             {
                 Shoot(coords.x, coords.y);
             }

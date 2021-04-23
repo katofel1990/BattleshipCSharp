@@ -73,7 +73,7 @@ namespace Battleship
                         else { x++; }
                         break;
                     case ConsoleKey.Enter:
-                        if (AreCoordsValid(x, y))
+                        if (CoordsAreValid(x, y))
                         {
                             Shoot(x, y);
 
@@ -94,7 +94,7 @@ namespace Battleship
             } while (shoot);
         }
 
-        protected bool AreCoordsValid(int x, int y)
+        protected bool CoordsAreValid(int x, int y)
         {
             return Board.ocean[x, y].Status == Square.SquareStatus.empty || Board.ocean[x, y].Status == Square.SquareStatus.ship;
         }
