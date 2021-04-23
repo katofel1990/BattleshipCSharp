@@ -62,7 +62,7 @@ namespace Battleship
             {
                 if(ShipUnderFire[0].Position.x == ShipUnderFire[1].Position.x)
                 {
-                    result.Add(Board.ocean[x - 1, y]);
+
                 }
             }
             return result;
