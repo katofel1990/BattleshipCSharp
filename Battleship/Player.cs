@@ -112,6 +112,7 @@ namespace Battleship
             LastShot = board.ocean[x, y];
 
             _display.PrintBoard(board);
+            _display.PrintMessage($"{Name}'s turn.");
             _display.WaitForTime(1000);
         }
 
