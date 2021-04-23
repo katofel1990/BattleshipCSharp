@@ -7,7 +7,7 @@ namespace Battleship
     public class Square
     {
         public (int x, int y) Position { get; private set; }
-        public enum SquareStatus { empty, ship, hit, missed, bouy }
+        public enum SquareStatus { empty, ship, hit, missed, buoy }
         public SquareStatus Status { get; set; }
         public Ship CurrentShip { get; set; }
 

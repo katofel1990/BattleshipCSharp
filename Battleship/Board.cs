@@ -85,7 +85,7 @@ namespace Battleship
 
         private void MarkSquareIfEmpty(Square currentSquare)
         {
-            if (currentSquare.Status == Square.SquareStatus.empty) currentSquare.Status = Square.SquareStatus.bouy;
+            if (currentSquare.Status == Square.SquareStatus.empty) currentSquare.Status = Square.SquareStatus.buoy;
         }
 
         public bool possibleShip(Ship ship)
@@ -115,7 +115,7 @@ namespace Battleship
             {
                 for (int j = 0; j < Size; j++)
                 {
-                    if (ocean[i,j].Status == Square.SquareStatus.bouy)
+                    if (ocean[i,j].Status == Square.SquareStatus.buoy)
                     {
                         ocean[i, j].Status = Square.SquareStatus.empty;
                     }
