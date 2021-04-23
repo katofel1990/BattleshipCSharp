@@ -40,8 +40,6 @@ namespace Battleship
                     (4, 1), (3, 2), (2, 3), (1, 4)
                 };
 
-
-
                 switch (option)
                 {
                     case 0:
