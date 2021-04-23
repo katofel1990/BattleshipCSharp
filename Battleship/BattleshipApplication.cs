@@ -38,7 +38,7 @@ namespace Battleship
 
                 _highScores.Load();
 
-                int option = _mainMenu.Menu(new List<string>() { "Human vs Human", "Human vs AI", "High Scores", "Exit" });
+                int option = _mainMenu.Menu(new List<string>() { "Human vs Human", "Human vs AI", "AI vs AI", "High Scores", "Exit" });
 
                 switch (option)
                 {
@@ -53,14 +53,20 @@ namespace Battleship
                         player1.Name = AskForName("Player1");
                         player2 = new ComputerPlayer("Computer", _display, _input); // TODO why cannot cast here?
                         PlaceShips(_shipsTemplate, player1);
-                        PlaceComputerShips(player2, _shipsTemplate);
+                        PlaceComputerShips(_shipsTemplate, player2);
                         break;
                     case 2:
+                        player1 = new ComputerPlayer("Computer1", _display, _input);
+                        player2 = new ComputerPlayer("Computer2", _display, _input); // TODO why cannot cast here?
+                        PlaceComputerShips(_shipsTemplate, player1);
+                        PlaceComputerShips(_shipsTemplate, player2);
+                        break;
+                    case 3:
                         _highScores.Print();
                         _display.PrintMessage(_ascii.PressAnyKey());
                         _input.ReadKey();
                         continue;
-                    case 3:
+                    case 4:
                         isRunning = false;
                         break;
                     default:
@@ -77,7 +83,7 @@ namespace Battleship
 
         }
 
-        private void PlaceComputerShips(Player player2, List<(int length, int count)> shipsTemplate)
+        private void PlaceComputerShips(List<(int length, int count)> shipsTemplate, Player player2)
         {
             GeneratePlayerShips(shipsTemplate, player2);
             _factory.RandomPlacement(player2.Board, player2.Ships);
