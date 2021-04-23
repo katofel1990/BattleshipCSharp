@@ -42,7 +42,7 @@ namespace Battleship
             }
             else
             {
-                OneShot(board);
+                ShootRandom(board);
             }
         }
 
