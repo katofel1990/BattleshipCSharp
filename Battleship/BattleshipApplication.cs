@@ -33,8 +33,8 @@ namespace Battleship
 
             do
             {
-                Player player1 = new Player("Player1");
-                Player player2 = new Player("Player2");
+                Player player1 = new Player("Player1", _display, _input);
+                Player player2 = new Player("Player2", _display, _input);
 
                 _highScores.Load();
 
@@ -51,7 +51,7 @@ namespace Battleship
                         break;
                     case 1:
                         player1.Name = AskForName("Player1");
-                        player2 = new ComputerPlayer("Computer");
+                        player2 = new ComputerPlayer("Computer", _display, _input); // TODO why cannot cast here?
                         PlaceShips(_shipsTemplate, player1);
                         PlaceComputerShips(player2, _shipsTemplate);
                         break;
