@@ -53,7 +53,7 @@ namespace Battleship
                 case 2:
                     return ConsoleColor.Red;
                 case 3:
-                    return ConsoleColor.DarkBlue;
+                    return ConsoleColor.Gray;
                 case 4:
                     return ConsoleColor.Yellow;
                 default:
