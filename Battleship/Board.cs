@@ -34,10 +34,10 @@ namespace Battleship
 
         public void AddShip(Ship ship)
         {
-            for (int i = 0; i < ship.length; i++)
+            for (int i = 0; i < ship.Length; i++)
             {
                 Square square;
-                if (ship.direction == Ship.Direction.horizontal)
+                if (ship.InstanceDirection == Ship.Direction.horizontal)
                 {
                     square = ocean[ship.OriginPoint.x + i, ship.OriginPoint.y];
                     square.Status = Square.SquareStatus.ship;
@@ -58,7 +58,7 @@ namespace Battleship
 
         public void MarkAdjacentSquares(Ship ship)
         {
-            foreach (Square square in ship.squares)
+            foreach (Square square in ship.Squares)
             {
                 int x = square.Position.x;
                 int y = square.Position.y;
@@ -90,9 +90,9 @@ namespace Battleship
 
         public bool possibleShip(Ship ship)
         {
-            for (int i = 0; i < ship.length; i++)
+            for (int i = 0; i < ship.Length; i++)
             {
-                if (ship.direction == Ship.Direction.horizontal)
+                if (ship.InstanceDirection == Ship.Direction.horizontal)
                 {
                     if (ocean[ship.OriginPoint.x+i, ship.OriginPoint.y].Status != Square.SquareStatus.empty)
                     {

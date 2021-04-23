@@ -56,7 +56,7 @@ namespace Battleship
 
         public void PrintBoard(Board board, Ship ship)
         {
-            (int xmin, int xmax, int ymin, int ymax) shipCords = GenerateTuple(ship.OriginPoint.x, ship.OriginPoint.y, ship.length, ship.direction);
+            (int xmin, int xmax, int ymin, int ymax) shipCords = GenerateTuple(ship.OriginPoint.x, ship.OriginPoint.y, ship.Length, ship.InstanceDirection);
             Clear();
             Square[,] boardToPrint = board.ocean;
             Console.WriteLine("    A B C D E F G H I J ");

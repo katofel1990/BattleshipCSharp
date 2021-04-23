@@ -9,7 +9,7 @@ namespace Battleship
         Random random = new Random();
         List<Square> _shipUnderFire;
 
-        public ComputerPlayer(string name) : base (name)
+        public ComputerPlayer(string name, Display display, Input input) : base (name, display, input)
         {
             _shipUnderFire = new List<Square>();
         }
