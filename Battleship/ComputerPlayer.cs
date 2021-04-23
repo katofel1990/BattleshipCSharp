@@ -35,7 +35,7 @@ namespace Battleship
 
         private void ComputerHard()
         {
-            if (!LastShot.CourentShip.IsAlive())
+            if (!LastShot.CurrentShip.IsAlive())
             {
                 ShipUnderFire.Clear();
             }
