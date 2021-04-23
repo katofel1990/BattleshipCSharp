@@ -1,89 +1,126 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Battleship
 {
     public class ComputerPlayer : Player
     {
         Random random = new Random();
-        List<Square> ShipUnderFire;
+        List<Square> _shipUnderFire;
 
         public ComputerPlayer(string name) : base (name)
         {
-            ShipUnderFire = new List<Square>();
+            _shipUnderFire = new List<Square>();
         }
 
-        public override void OneShot(string currentPlayerName)
+        public override void OneShot(Board board)
         {
             if (LastShot != null)
             {
-                if (LastShot.Status == Square.SquareStatus.hit)
+                if (LastShot.Status == Square.SquareStatus.hit || _shipUnderFire.Count > 0)
                 {
-                    ComputerHard();
+                    ComputerHard(board);
+                }
+                else
+                {
+                    ShootRandom(board);
                 }
             }
-            (int x, int y) coords = GetRandomCoords();
-            if (CoordsAreValid(coords.x, coords.y))
-            {
-                Shoot(coords.x, coords.y);
-            }
             else
             {
-                OneShot(currentPlayerName);
+                ShootRandom(board);
             }
         }
 
-        private void ComputerHard()
+        private void ShootRandom(Board board)
         {
-            if (!LastShot.CourentShip.IsAlive())
+            (int x, int y) coords = GetRandomCoords();
+            if (CoordsAreValid(board, coords.x, coords.y))
             {
-                ShipUnderFire.Clear();
+                Shoot(board, coords.x, coords.y);
             }
             else
             {
-                ShipUnderFire.Add(LastShot);
+                OneShot(board);
             }
         }
 
+        private void ComputerHard(Board board)
+        {
+            List<Square> possibleShots;
+            Square squareToShoot;
+            if (LastShot.Status == Square.SquareStatus.hit)
+            {
+                if (!LastShot.CurrentShip.IsAlive())
+                {
+                    _shipUnderFire.Clear();
+                    ShootRandom(board);
+                }
+                else
+                {
+                    _shipUnderFire.Add(LastShot);
+                    possibleShots = GeneratePossibleShoots();
+                    squareToShoot = possibleShots[random.Next(possibleShots.Count)];
+
+                    Shoot(board, squareToShoot.Position.x, squareToShoot.Position.y);
+                }
+            }
+            else
+            {
+                possibleShots = GeneratePossibleShoots();
+                squareToShoot = possibleShots[random.Next(possibleShots.Count)];
+
+                Shoot(board, squareToShoot.Position.x, squareToShoot.Position.y);
+            }
+        }
 
         private List<Square> GeneratePossibleShoots()
         {
             List<Square> result = new List<Square>();
-            int x = ShipUnderFire[0].Position.x;
-            int y = ShipUnderFire[0].Position.y;
-            if (ShipUnderFire.Count == 1)
+            int x = _shipUnderFire[0].Position.x;
+            int y = _shipUnderFire[0].Position.y;
+            if (_shipUnderFire.Count == 1)
             {
-                AreCoordsEmpty(result, x, y + 1);
-                AreCoordsEmpty(result, x, y - 1);
-                AreCoordsEmpty(result, x + 1, y);
-                AreCoordsEmpty(result, x - 1, y);
+                AddToResultIfValid(result, x, y + 1);
+                AddToResultIfValid(result, x, y - 1);
+                AddToResultIfValid(result, x + 1, y);
+                AddToResultIfValid(result, x - 1, y);
             }
             else
             {
-                if(ShipUnderFire[0].Position.x == ShipUnderFire[1].Position.x)
+                SortShipSquares();
+                if(_shipUnderFire[0].Position.x == _shipUnderFire[1].Position.x)
                 {
-
+                    AddToResultIfValid(result, x, _shipUnderFire[0].Position.y - 1);
+                    AddToResultIfValid(result, x, _shipUnderFire[_shipUnderFire.Count - 1].Position.y + 1);
                 }
+                else
+                {
+                    AddToResultIfValid(result, _shipUnderFire[0].Position.x - 1, y);
+                    AddToResultIfValid(result, _shipUnderFire[_shipUnderFire.Count - 1].Position.x + 1, y);
+                }
+
             }
             return result;
         }
 
-        private void AreCoordsEmpty(List<Square> result, int x, int y)
+        private void SortShipSquares()
         {
-            if (Board.ocean[x, y].Status == Square.SquareStatus.empty)
+            _shipUnderFire = _shipUnderFire.OrderBy(square => square.Position.x).ThenBy(square => square.Position.y).ToList<Square>();
+        }
+
+        private void AddToResultIfValid(List<Square> result, int x, int y)
+        {
+            if (x >= 0 && x < Board.Size && y >= 0 && y < Board.Size)
             {
-                result.Add(Board.ocean[x, y]);
+                var status = Board.ocean[x, y].Status;
+                if (status == Square.SquareStatus.empty || status == Square.SquareStatus.ship)
+                {
+                    result.Add(Board.ocean[x, y]);
+                }
             }
         }
-        /// <summary>
-        /// IF ostatni strzał był trafny
-        /// tworzymy liste aktualnie "ostrzeliwiany statek", zawierająca potencjalne koordynaty dookoła, sprawdzamy czy żaden z nich nie jest miss
-        /// Oddajemy kolejny strzał, jeśli nie jest trafny usuwamy dany koordynat z listy i próbujemy dalej
-        /// Jeśli trafimy to idziemy w danej orientacji (góra/dół lub lewo/prawo)
-        /// walimy dopóki nie zatopimy statku
-        /// </summary>
-        /// <returns></returns>
-
 
         private (int x, int y) GetRandomCoords()
         {
@@ -92,8 +129,5 @@ namespace Battleship
 
             return (x, y);
         }
-
-        
-        
     }
 }

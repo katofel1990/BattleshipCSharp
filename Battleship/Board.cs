@@ -41,7 +41,7 @@ namespace Battleship
                 {
                     square = ocean[ship.OriginPoint.x + i, ship.OriginPoint.y];
                     square.Status = Square.SquareStatus.ship;
-                    square.CourentShip = ship;
+                    square.CurrentShip = ship;
                     
                     ship.AddSquare(square);
                 }
@@ -49,7 +49,7 @@ namespace Battleship
                 {
                     square = ocean[ship.OriginPoint.x, ship.OriginPoint.y + i];
                     square.Status = Square.SquareStatus.ship;
-                    square.CourentShip = ship;
+                    square.CurrentShip = ship;
                     ship.AddSquare(square);
                 }
                 MarkAdjacentSquares(ship);

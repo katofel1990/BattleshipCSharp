@@ -58,8 +58,8 @@ namespace Battleship
             bool lastShot = true;
             while (lastShot)
             {
-                NextPlayer.OneShot(CurrentPlayer.Name);
-                if (NextPlayer.LastShot.Status != Square.SquareStatus.hit)
+                CurrentPlayer.OneShot(NextPlayer.Board);
+                if (CurrentPlayer.LastShot.Status != Square.SquareStatus.hit)
                 {
                     lastShot = false;
                 }

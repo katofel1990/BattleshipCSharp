@@ -30,7 +30,7 @@ namespace Battleship
             return false;
         }
 
-        public virtual void OneShot(string currentPlayerName)
+        public virtual void OneShot(Board board)
         {
             Display display = new Display();  // do wykasowania
             Input input = new Input(); // do wykasowania
@@ -38,14 +38,14 @@ namespace Battleship
 
             int x = 0;
             int y = 0;
-            int size = Board.Size;
+            int size = board.Size;
             ConsoleKey key;            
             bool wrongPositionMessage = false;
             bool shoot = true;
             do
             {
-                display.PrintBoard(Board, x, y);
-                display.PrintMessage($"\n{currentPlayerName} turn.");
+                display.PrintBoard(board, x, y);
+                display.PrintMessage($"\n{Name} turn.");
                 if (wrongPositionMessage)
                 {
                     display.PrintMessage("Ivalid Shoot", ConsoleColor.Red);
@@ -73,9 +73,9 @@ namespace Battleship
                         else { x++; }
                         break;
                     case ConsoleKey.Enter:
-                        if (CoordsAreValid(x, y))
+                        if (CoordsAreValid(board, x, y))
                         {
-                            Shoot(x, y);
+                            Shoot(board, x, y);
 
                             //TODO jak działa system sleep
                             //display.PrintBoard(Board);
@@ -94,27 +94,27 @@ namespace Battleship
             } while (shoot);
         }
 
-        protected bool CoordsAreValid(int x, int y)
+        protected bool CoordsAreValid(Board board, int x, int y)
         {
-            return Board.ocean[x, y].Status == Square.SquareStatus.empty || Board.ocean[x, y].Status == Square.SquareStatus.ship;
+            return board.ocean[x, y].Status == Square.SquareStatus.empty || board.ocean[x, y].Status == Square.SquareStatus.ship;
         }
 
-        protected void Shoot(int x, int y)
+        protected void Shoot(Board board, int x, int y)
         {
-            Board.ocean[x, y].Status = Board.ocean[x, y].Status == Square.SquareStatus.ship ? Square.SquareStatus.hit : Square.SquareStatus.missed;
-            if (Board.ocean[x, y].Status == Square.SquareStatus.hit)
+            board.ocean[x, y].Status = board.ocean[x, y].Status == Square.SquareStatus.ship ? Square.SquareStatus.hit : Square.SquareStatus.missed;
+            if (board.ocean[x, y].Status == Square.SquareStatus.hit)
             {
-                if (!Board.ocean[x, y].CourentShip.IsAlive())
+                if (!board.ocean[x, y].CurrentShip.IsAlive())
                 {
-                    Board.MarkAdjacentSquares(Board.ocean[x, y].CourentShip);
+                    board.MarkAdjacentSquares(board.ocean[x, y].CurrentShip);
                 }
             }
-            LastShot = Board.ocean[x, y];
+            LastShot = board.ocean[x, y];
 
 
 
             Display display = new Display();  // do wykasowania
-            display.PrintBoard(Board);
+            display.PrintBoard(board);
             display.WaitForTime(1000);
         }
 
@@ -123,12 +123,6 @@ namespace Battleship
             int score = 100;
             score += GetSquaresCount() * 10;
             return score;
-        }
-
-        public ComputerPlayer GetComputerPlayer()
-        {
-            Name = "Computer";
-            return (ComputerPlayer)this;
         }
 
         private int GetSquaresCount()

@@ -9,7 +9,7 @@ namespace Battleship
         public (int x, int y) Position { get; private set; }
         public enum SquareStatus { empty, ship, hit, missed, bouy }
         public SquareStatus Status { get; set; }
-        public Ship CourentShip { get; set; }
+        public Ship CurrentShip { get; set; }
 
         public Square(int x, int y)
         {
@@ -53,7 +53,7 @@ namespace Battleship
                 case 2:
                     return ConsoleColor.Red;
                 case 3:
-                    return ConsoleColor.DarkBlue;
+                    return ConsoleColor.Gray;
                 case 4:
                     return ConsoleColor.Yellow;
                 default:

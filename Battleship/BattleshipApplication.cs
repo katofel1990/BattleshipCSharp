@@ -51,7 +51,7 @@ namespace Battleship
                         break;
                     case 1:
                         player1.Name = AskForName("Player1");
-                        player2 = player2.GetComputerPlayer();
+                        player2 = new ComputerPlayer("Computer");
                         PlaceShips(_shipsTemplate, player1);
                         PlaceComputerShips(player2, _shipsTemplate);
                         break;
