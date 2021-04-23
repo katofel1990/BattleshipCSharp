@@ -125,6 +125,12 @@ namespace Battleship
             return score;
         }
 
+        public ComputerPlayer GetComputerPlayer()
+        {
+            Name = "Computer";
+            return (ComputerPlayer)this;
+        }
+
         private int GetSquaresCount()
         {
             int result = 0;

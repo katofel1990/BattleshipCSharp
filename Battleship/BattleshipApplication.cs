@@ -6,13 +6,16 @@ namespace Battleship
 {
     public class BattleshipApplication
     {
-        Display _display;
-        Input _input;
-        MainMenu _mainMenu;
-        Game _game;
-        BoardFactory _factory;
+        readonly Display _display;
+        readonly Input _input;
+        readonly MainMenu _mainMenu;
+        readonly BoardFactory _factory;
         ASCII _ascii;
-        HighScores _highScores;
+        readonly HighScores _highScores;
+        readonly List<(int length, int count)> _shipsTemplate = new List<(int length, int count)>
+                {
+                    (4, 1), (3, 2), (2, 3), (1, 4)
+                };
 
         public BattleshipApplication(MainMenu menu, Display display, Input input, HighScores highScores)
         {
@@ -34,28 +37,23 @@ namespace Battleship
                 Player player2 = new Player("Player2");
 
                 _highScores.Load();
+
                 int option = _mainMenu.Menu(new List<string>() { "Human vs Human", "Human vs AI", "High Scores", "Exit" });
-                List<(int length, int count)> shipsTemplate = new List<(int length, int count)>
-                {
-                    (4, 1), (3, 2), (2, 3), (1, 4)
-                };
-
-
 
                 switch (option)
                 {
                     case 0:
                         player1.Name = AskForName("Player1");
                         player2.Name = AskForName("Player2");
-                        PlaceShips(shipsTemplate, player1);
-                        PlaceShips(shipsTemplate, player2);
+                        PlaceShips(_shipsTemplate, player1);
+                        PlaceShips(_shipsTemplate, player2);
 
                         break;
                     case 1:
                         player1.Name = AskForName("Player1");
-                        player2 = new ComputerPlayer("Computer");
-                        PlaceShips(shipsTemplate, player1);
-                        PlaceComputerShips(player2, shipsTemplate);
+                        player2 = player2.GetComputerPlayer();
+                        PlaceShips(_shipsTemplate, player1);
+                        PlaceComputerShips(player2, _shipsTemplate);
                         break;
                     case 2:
                         _highScores.Print();
@@ -71,11 +69,9 @@ namespace Battleship
 
                 if(!isRunning) break;
 
-                // Start Game
-
-                _game = new Game(player1, player2, _highScores);
-                _game.ConfigureUI(_display, _input);
-                _game.Run();
+                var game = new Game(player1, player2, _highScores);
+                game.ConfigureUI(_display, _input);
+                game.Run();
 
             } while (isRunning);
 
