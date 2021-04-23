@@ -6,15 +6,19 @@ namespace Battleship
 {
     public class Player
     {
+        protected Display _display;
+        protected Input _input;
         public string Name { get; set; }
         public List<Ship> Ships { get; set; } = new List<Ship>();
         public Board Board { get; }
         public Square LastShot { get; private set; }
 
-        public Player(string name)
+        public Player(string name, Display display, Input input)
         {
             Board = new Board(10);
             Name = name;
+            _display = display;
+            _input = input;
         }
 
         public bool IsAlive()
@@ -32,10 +36,6 @@ namespace Battleship
 
         public virtual void OneShot(Board board)
         {
-            Display display = new Display();  // do wykasowania
-            Input input = new Input(); // do wykasowania
-            
-
             int x = 0;
             int y = 0;
             int size = board.Size;
@@ -44,14 +44,14 @@ namespace Battleship
             bool shoot = true;
             do
             {
-                display.PrintBoard(board, x, y);
-                display.PrintMessage($"\n{Name} turn.");
+                _display.PrintBoard(board, x, y);
+                _display.PrintMessage($"\n{Name} turn.");
                 if (wrongPositionMessage)
                 {
-                    display.PrintMessage("Ivalid Shoot", ConsoleColor.Red);
+                    _display.PrintMessage("Invalid Shot", ConsoleColor.Red);
                     wrongPositionMessage = false;
                 }
-                key = input.ReadKey();
+                key = _input.ReadKey();
 
                 switch (key)
                 {
@@ -78,8 +78,8 @@ namespace Battleship
                             Shoot(board, x, y);
 
                             //TODO jak działa system sleep
-                            //display.PrintBoard(Board);
-                            //display.WaitForTime(1000);
+                            //_display.PrintBoard(Board);
+                            //_display.WaitForTime(1000);
 
                             shoot = false;
                         }
@@ -111,11 +111,8 @@ namespace Battleship
             }
             LastShot = board.ocean[x, y];
 
-
-
-            Display display = new Display();  // do wykasowania
-            display.PrintBoard(board);
-            display.WaitForTime(1000);
+            _display.PrintBoard(board);
+            _display.WaitForTime(1000);
         }
 
         public int GetScore()
@@ -131,7 +128,7 @@ namespace Battleship
 
             foreach (var ship in Ships)
             {
-                foreach(var square in ship.squares)
+                foreach(var square in ship.Squares)
                 {
                     if (square.Status == Square.SquareStatus.ship) result++;
                 }

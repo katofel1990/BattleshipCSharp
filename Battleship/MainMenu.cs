@@ -5,13 +5,13 @@ namespace Battleship
 {
     public class MainMenu
     {
-        Display display { get; }
-        Input input { get; }
+        Display _display { get; }
+        Input _input { get; }
 
         public MainMenu(Display display, Input input)
         {
-            this.display = display;
-            this.input = input;
+            this._display = display;
+            this._input = input;
         }
 
         public string AskForGameMode()
@@ -32,9 +32,9 @@ namespace Battleship
             do
             {
                 Console.Clear();
-                if (!String.IsNullOrEmpty(title)) display.PrintMessage(title);
-                display.PrintMenu(options, x);
-                key = input.ReadKey();
+                if (!String.IsNullOrEmpty(title)) _display.PrintMessage(title);
+                _display.PrintMenu(options, x);
+                key = _input.ReadKey();
                 switch (key)
                 {
                     case ConsoleKey.UpArrow:

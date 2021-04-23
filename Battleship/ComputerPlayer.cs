@@ -9,7 +9,7 @@ namespace Battleship
         Random random = new Random();
         List<Square> _shipUnderFire;
 
-        public ComputerPlayer(string name) : base (name)
+        public ComputerPlayer(string name, Display display, Input input) : base (name, display, input)
         {
             _shipUnderFire = new List<Square>();
         }
@@ -35,14 +35,14 @@ namespace Battleship
 
         private void ShootRandom(Board board)
         {
-            (int x, int y) coords = GetRandomCoords();
+            (int x, int y) coords = GetRandomCoords(board);
             if (CoordsAreValid(board, coords.x, coords.y))
             {
                 Shoot(board, coords.x, coords.y);
             }
             else
             {
-                OneShot(board);
+                ShootRandom(board);
             }
         }
 
@@ -60,7 +60,7 @@ namespace Battleship
                 else
                 {
                     _shipUnderFire.Add(LastShot);
-                    possibleShots = GeneratePossibleShoots();
+                    possibleShots = GeneratePossibleShots(board);
                     squareToShoot = possibleShots[random.Next(possibleShots.Count)];
 
                     Shoot(board, squareToShoot.Position.x, squareToShoot.Position.y);
@@ -68,64 +68,64 @@ namespace Battleship
             }
             else
             {
-                possibleShots = GeneratePossibleShoots();
+                possibleShots = GeneratePossibleShots(board);
                 squareToShoot = possibleShots[random.Next(possibleShots.Count)];
 
                 Shoot(board, squareToShoot.Position.x, squareToShoot.Position.y);
             }
         }
 
-        private List<Square> GeneratePossibleShoots()
+        private List<Square> GeneratePossibleShots(Board board)
         {
             List<Square> result = new List<Square>();
             int x = _shipUnderFire[0].Position.x;
             int y = _shipUnderFire[0].Position.y;
             if (_shipUnderFire.Count == 1)
             {
-                AddToResultIfValid(result, x, y + 1);
-                AddToResultIfValid(result, x, y - 1);
-                AddToResultIfValid(result, x + 1, y);
-                AddToResultIfValid(result, x - 1, y);
+                AddToResultIfValid(board, result, x, y + 1);
+                AddToResultIfValid(board, result, x, y - 1);
+                AddToResultIfValid(board, result, x + 1, y);
+                AddToResultIfValid(board, result, x - 1, y);
             }
             else
             {
-                SortShipSquares();
+                SortSquaresByPosition();
                 if(_shipUnderFire[0].Position.x == _shipUnderFire[1].Position.x)
                 {
-                    AddToResultIfValid(result, x, _shipUnderFire[0].Position.y - 1);
-                    AddToResultIfValid(result, x, _shipUnderFire[_shipUnderFire.Count - 1].Position.y + 1);
+                    AddToResultIfValid(board, result, x, _shipUnderFire[0].Position.y - 1);
+                    AddToResultIfValid(board, result, x, _shipUnderFire[_shipUnderFire.Count - 1].Position.y + 1);
                 }
                 else
                 {
-                    AddToResultIfValid(result, _shipUnderFire[0].Position.x - 1, y);
-                    AddToResultIfValid(result, _shipUnderFire[_shipUnderFire.Count - 1].Position.x + 1, y);
+                    AddToResultIfValid(board, result, _shipUnderFire[0].Position.x - 1, y);
+                    AddToResultIfValid(board, result, _shipUnderFire[_shipUnderFire.Count - 1].Position.x + 1, y);
                 }
 
             }
             return result;
         }
 
-        private void SortShipSquares()
+        private void SortSquaresByPosition()
         {
             _shipUnderFire = _shipUnderFire.OrderBy(square => square.Position.x).ThenBy(square => square.Position.y).ToList<Square>();
         }
 
-        private void AddToResultIfValid(List<Square> result, int x, int y)
+        private void AddToResultIfValid(Board board, List<Square> result, int x, int y)
         {
-            if (x >= 0 && x < Board.Size && y >= 0 && y < Board.Size)
+            if (x >= 0 && x < board.Size && y >= 0 && y < board.Size)
             {
-                var status = Board.ocean[x, y].Status;
+                var status = board.ocean[x, y].Status;
                 if (status == Square.SquareStatus.empty || status == Square.SquareStatus.ship)
                 {
-                    result.Add(Board.ocean[x, y]);
+                    result.Add(board.ocean[x, y]);
                 }
             }
         }
 
-        private (int x, int y) GetRandomCoords()
+        private (int x, int y) GetRandomCoords(Board board)
         {
-            int x = random.Next(Board.Size);
-            int y = random.Next(Board.Size);
+            int x = random.Next(board.Size);
+            int y = random.Next(board.Size);
 
             return (x, y);
         }

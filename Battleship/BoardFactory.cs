@@ -6,12 +6,12 @@ namespace Battleship
 {
     public class BoardFactory
     {
-        Display display { get; }
-        Input input { get; }
+        Display _display { get; }
+        Input _input { get; }
         public BoardFactory(Display display, Input input)
         {
-            this.display = display;
-            this.input = input;
+            this._display = display;
+            this._input = input;
         }
         public void RandomPlacement(Board board, List<Ship> ships)
         {
@@ -35,8 +35,8 @@ namespace Battleship
         void NewRandomPosition(Ship ship, int sizeMap)
         {
             Random rnd = new Random();
-            ship.direction = rnd.Next(2) == 0 ? Ship.Direction.horizontal : Ship.Direction.vertical;
-            ship.OriginPoint = (ship.direction == Ship.Direction.horizontal ?  (rnd.Next(sizeMap - ship.length + 1), rnd.Next(sizeMap)) : (rnd.Next(sizeMap), rnd.Next(sizeMap - ship.length + 1)));          
+            ship.InstanceDirection = rnd.Next(2) == 0 ? Ship.Direction.horizontal : Ship.Direction.vertical;
+            ship.OriginPoint = (ship.InstanceDirection == Ship.Direction.horizontal ?  (rnd.Next(sizeMap - ship.Length + 1), rnd.Next(sizeMap)) : (rnd.Next(sizeMap), rnd.Next(sizeMap - ship.Length + 1)));          
         }
 
         public void ManualPlacement(Board board, List<Ship> ships)
@@ -59,45 +59,45 @@ namespace Battleship
             do
             {
                 ship.OriginPoint = (x, y);
-                ship.direction = dir;
-                display.PrintBoard(board, ship);
+                ship.InstanceDirection = dir;
+                _display.PrintBoard(board, ship);
                 if (wrongPositionMessage)
                 {
-                    display.PrintMessage("Ivalid Ship Position", ConsoleColor.Red);
+                    _display.PrintMessage("Invalid Ship Position", ConsoleColor.Red);
                     wrongPositionMessage = false;
                 }
-                key = input.ReadKey();
+                key = _input.ReadKey();
                 
                 switch (key)
                 {
                     case ConsoleKey.UpArrow:
-                        if (y == 0 && dir == Ship.Direction.vertical) { y = size - ship.length; } 
+                        if (y == 0 && dir == Ship.Direction.vertical) { y = size - ship.Length; } 
                         else if (y == 0 && dir == Ship.Direction.horizontal) { y = size - 1; } 
                         else { y--; }
                         break;
                     case ConsoleKey.DownArrow:
-                        if ((y == size - ship.length && dir == Ship.Direction.vertical) || (y == size - 1)) { y = 0; } 
+                        if ((y == size - ship.Length && dir == Ship.Direction.vertical) || (y == size - 1)) { y = 0; } 
                         else { y++; }
                         break;
                     case ConsoleKey.LeftArrow:
-                        if (x == 0 && dir == Ship.Direction.horizontal) { x = size - ship.length; } 
+                        if (x == 0 && dir == Ship.Direction.horizontal) { x = size - ship.Length; } 
                         else if (x == 0 && dir == Ship.Direction.vertical) { x = size - 1; } 
                         else { x--; }
                         break;
                     case ConsoleKey.RightArrow:
-                        if ((x == size - ship.length && dir == Ship.Direction.horizontal) || (x == size - 1)) { x = 0; } 
+                        if ((x == size - ship.Length && dir == Ship.Direction.horizontal) || (x == size - 1)) { x = 0; } 
                         else { x++; }
                         break;
                     case ConsoleKey.Spacebar:
                         if (dir == Ship.Direction.horizontal)
                         {
                             dir = Ship.Direction.vertical;
-                            if (y >= size - ship.length) { y = size - ship.length; }
+                            if (y >= size - ship.Length) { y = size - ship.Length; }
                         } 
                         else
                         {
                             dir = Ship.Direction.horizontal;
-                            if (x >= size - ship.length) { x = size - ship.length; }
+                            if (x >= size - ship.Length) { x = size - ship.Length; }
                         }
                         break;
                     case ConsoleKey.Enter:
