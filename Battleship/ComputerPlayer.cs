@@ -75,7 +75,6 @@ namespace Battleship
             }
         }
 
-
         private List<Square> GeneratePossibleShoots()
         {
             List<Square> result = new List<Square>();
@@ -123,16 +122,6 @@ namespace Battleship
             }
         }
 
-        /// <summary>
-        /// IF ostatni strzał był trafny
-        /// tworzymy liste aktualnie "ostrzeliwiany statek", zawierająca potencjalne koordynaty dookoła, sprawdzamy czy żaden z nich nie jest miss
-        /// Oddajemy kolejny strzał, jeśli nie jest trafny usuwamy dany koordynat z listy i próbujemy dalej
-        /// Jeśli trafimy to idziemy w danej orientacji (góra/dół lub lewo/prawo)
-        /// walimy dopóki nie zatopimy statku
-        /// </summary>
-        /// <returns></returns>
-
-
         private (int x, int y) GetRandomCoords()
         {
             int x = random.Next(Board.Size);
@@ -140,8 +129,5 @@ namespace Battleship
 
             return (x, y);
         }
-
-        
-        
     }
 }
