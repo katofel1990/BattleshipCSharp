@@ -10,7 +10,7 @@ namespace Battleship
         public int Size { get; private set; }
 
 
-        public Board(int size) // TODO pass size (or widht and height) here - bart
+        public Board(int size)
         {
             Size = size;
             ocean = NewOcean(Size);
