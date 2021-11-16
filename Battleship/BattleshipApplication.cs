@@ -43,21 +43,21 @@ namespace Battleship
                 switch (option)
                 {
                     case 0:
-                        player1.Name = AskForName("Player1");
-                        player2.Name = AskForName("Player2");
+                        player1.Name = AskForName("Player 1");
+                        player2.Name = AskForName("Player 2");
                         PlaceShips(_shipsTemplate, player1);
                         PlaceShips(_shipsTemplate, player2);
 
                         break;
                     case 1:
-                        player1.Name = AskForName("Player1");
-                        player2 = new ComputerPlayer("Computer", _display, _input); // TODO why cannot cast here?
+                        player1.Name = AskForName("Player 1");
+                        player2 = new ComputerPlayer("Computer 1", _display, _input); // TODO why cannot cast here?
                         PlaceShips(_shipsTemplate, player1);
                         PlaceComputerShips(_shipsTemplate, player2);
                         break;
                     case 2:
-                        player1 = new ComputerPlayer("Computer1", _display, _input);
-                        player2 = new ComputerPlayer("Computer2", _display, _input); // TODO why cannot cast here?
+                        player1 = new ComputerPlayer("Computer 1", _display, _input);
+                        player2 = new ComputerPlayer("Computer 2", _display, _input); // TODO why cannot cast here?
                         PlaceComputerShips(_shipsTemplate, player1);
                         PlaceComputerShips(_shipsTemplate, player2);
                         break;

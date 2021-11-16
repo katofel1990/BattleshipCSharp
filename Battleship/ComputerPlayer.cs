@@ -16,6 +16,10 @@ namespace Battleship
 
         public override void OneShot(Board board)
         {
+            _display.PrintBoard(board);
+            _display.PrintMessage($"{Name}'s turn.");
+            _display.WaitForTime(700);
+
             if (LastShot != null)
             {
                 if (LastShot.Status == Square.SquareStatus.hit || _shipUnderFire.Count > 0)
